@@ -1,0 +1,49 @@
+// ==UserScript==
+// @name         Bloxd.io Auto Clicker & Item Duplicator (Cheat)
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Auto-click and duplicate items in Bloxd.io (if allowed)
+// @author       You
+// @match        https://bloxd.io/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Function to automatically click on common action buttons
+    function autoClick() {
+        let actionButton = document.querySelector('.action-button, .craft-button, .upgrade-button'); // Common button selectors
+
+        if (actionButton) {
+            actionButton.click();  // Click the action button automatically
+            console.log('Button clicked!');
+        } else {
+            console.log('Action button not found.');
+        }
+    }
+
+    // Function to duplicate the first item it can find
+    function duplicateItem() {
+        let selectedItem = document.querySelector('.item, .block, .inventory-item, .game-item'); // Common item selectors
+
+        if (selectedItem) {
+            let clonedItem = selectedItem.cloneNode(true);  // Clone the selected item
+            selectedItem.parentNode.appendChild(clonedItem);  // Append it to the parent
+            console.log('Item duplicated!');
+        } else {
+            console.log('Item not found!');
+        }
+    }
+
+    // Automatically click the action buttons every 1 second (1000ms)
+    setInterval(autoClick, 1000);
+
+    // Trigger duplication when you press "D" (can be changed to any key)
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'D') {  // Press "D" to duplicate
+            duplicateItem();
+        }
+    });
+
+})();
